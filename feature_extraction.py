@@ -1,4 +1,3 @@
-
 import os
 import cv2
 import numpy as np
@@ -13,7 +12,7 @@ FEATURES_PATH = "features"
 os.makedirs(FEATURES_PATH, exist_ok=True)
 
 # ------------------------------
-# Load Pretrained Model
+# Load Pretrained Model ONCE
 # ------------------------------
 model = MobileNetV2(
     weights="imagenet",
@@ -23,6 +22,7 @@ model = MobileNetV2(
 
 model.trainable = False
 print("✅ MobileNetV2 loaded")
+
 
 # ------------------------------
 # Image Preprocessing
@@ -34,10 +34,24 @@ def load_and_preprocess_image(img_path):
     img = preprocess_input(img)
     return img
 
+
 # ------------------------------
-# Feature Extraction Function
+# SINGLE IMAGE Feature Extraction
+# (Used in prediction)
 # ------------------------------
-def extract_features(base_dir):
+def extract_features(image_path):
+    img = load_and_preprocess_image(image_path)
+    img = np.expand_dims(img, axis=0)
+
+    feature = model.predict(img, verbose=0)
+    return feature.flatten()
+
+
+# ------------------------------
+# DATASET Feature Extraction
+# (Run only once)
+# ------------------------------
+def extract_dataset_features(base_dir):
     X, y = [], []
     class_names = sorted(os.listdir(base_dir))
 
@@ -46,42 +60,34 @@ def extract_features(base_dir):
         for img_name in os.listdir(cls_path):
             img_path = os.path.join(cls_path, img_name)
 
-            img = load_and_preprocess_image(img_path)
-            img = np.expand_dims(img, axis=0)
-
-            feature = model.predict(img, verbose=0)
-            feature = feature.flatten()
-
+            feature = extract_features(img_path)
             X.append(feature)
             y.append(label)
 
     return np.array(X), np.array(y), class_names
 
-# ------------------------------
-# Extract Training Features
-# ------------------------------
-print("⏳ Extracting training features...")
-X_train, y_train, class_names = extract_features(
-    os.path.join(DATASET_PATH, "Training")
-)
 
 # ------------------------------
-# Extract Testing Features
+# RUN ONLY WHEN EXECUTED DIRECTLY
 # ------------------------------
-print("⏳ Extracting testing features...")
-X_test, y_test, _ = extract_features(
-    os.path.join(DATASET_PATH, "Testing")
-)
+if __name__ == "__main__":
 
-# ------------------------------
-# Save Features
-# ------------------------------
-np.save(os.path.join(FEATURES_PATH, "X_train.npy"), X_train)
-np.save(os.path.join(FEATURES_PATH, "y_train.npy"), y_train)
-np.save(os.path.join(FEATURES_PATH, "X_test.npy"), X_test)
-np.save(os.path.join(FEATURES_PATH, "y_test.npy"), y_test)
-np.save(os.path.join(FEATURES_PATH, "class_names.npy"), class_names)
+    print("⏳ Extracting training features...")
+    X_train, y_train, class_names = extract_dataset_features(
+        os.path.join(DATASET_PATH, "Training")
+    )
 
-print("✅ Feature extraction completed")
-print("Training features:", X_train.shape)
-print("Testing features:", X_test.shape)
+    print("⏳ Extracting testing features...")
+    X_test, y_test, _ = extract_dataset_features(
+        os.path.join(DATASET_PATH, "Testing")
+    )
+
+    np.save(os.path.join(FEATURES_PATH, "X_train.npy"), X_train)
+    np.save(os.path.join(FEATURES_PATH, "y_train.npy"), y_train)
+    np.save(os.path.join(FEATURES_PATH, "X_test.npy"), X_test)
+    np.save(os.path.join(FEATURES_PATH, "y_test.npy"), y_test)
+    np.save(os.path.join(FEATURES_PATH, "class_names.npy"), class_names)
+
+    print("✅ Feature extraction completed")
+    print("Training features:", X_train.shape)
+    print("Testing features:", X_test.shape)

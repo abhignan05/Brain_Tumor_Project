@@ -1,0 +1,7 @@
+__pycache__/
+features/
+models/
+output/
+*.pyc
+*.pkl
+*.npy
