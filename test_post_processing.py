@@ -1,12 +1,13 @@
 from post_processing import analyze_tumor_region
 
-image_path = "Dataset/Testing/meningioma/Te-me_0040.jpg"
+image_path = "Dataset/Testing/glioma/Te-gl_0014.jpg"
 
 result = analyze_tumor_region(image_path)
 
 print("\nResult:", result["result"])
 print("Predicted Class:", result["predicted_class"])
 print("Confidence:", result["confidence"], "%")
-
-if result["result"] == "Tumor Detected":
-    print("Tumor Size:", result["tumor_percentage"], "%")
+print("Tumor Size:", result["tumor_percentage"], "%")
+print("Risk Level:", result["risk_level"])
+print("Precaution:", result["precaution"])
+print("Recommendation:", result["recommendation"])

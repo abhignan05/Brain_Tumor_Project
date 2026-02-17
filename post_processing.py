@@ -6,15 +6,13 @@ import joblib
 from feature_extraction import extract_features
 
 # =========================
-# Load Model + Scaler ONCE
+# Load Model + Scaler
 # =========================
 MODEL_PATH = "models"
 FEATURES_PATH = "features"
 
 model = joblib.load(os.path.join(MODEL_PATH, "svm_model.pkl"))
 scaler = joblib.load(os.path.join(MODEL_PATH, "scaler.pkl"))
-
-# Load class names (VERY IMPORTANT for multi-class)
 class_names = np.load(os.path.join(FEATURES_PATH, "class_names.npy"), allow_pickle=True)
 
 print("✅ Model loaded successfully!")
@@ -22,15 +20,17 @@ print("Classes:", class_names)
 
 
 # =========================
-# Tumor Segmentation
+# Tumor Percentage Estimation
 # =========================
 def calculate_tumor_percentage(image_path):
+
     img = cv2.imread(image_path, 0)
 
     if img is None:
-        raise ValueError(f"❌ Image not found at path: {image_path}")
+        raise ValueError(f"Invalid image path: {image_path}")
 
-    _, thresh = cv2.threshold(img, 150, 255, cv2.THRESH_BINARY)
+    # Simple threshold-based estimation
+    _, thresh = cv2.threshold(img, 155, 255, cv2.THRESH_BINARY)
 
     tumor_pixels = np.sum(thresh == 255)
     total_pixels = img.shape[0] * img.shape[1]
@@ -40,28 +40,22 @@ def calculate_tumor_percentage(image_path):
 
 
 # =========================
-# Prediction Function
+# Main Prediction Function
 # =========================
 def analyze_tumor_region(image_path):
 
     if not os.path.exists(image_path):
-        raise ValueError(f"❌ Invalid image path: {image_path}")
+        raise ValueError(f"Invalid image path: {image_path}")
 
-    # Extract features
+    # Feature Extraction
     features = extract_features(image_path)
-
-    # Scale features
     features = scaler.transform([features])
 
-    # Predict class index
+    # Prediction
     prediction = model.predict(features)[0]
-
-    # Get actual class name
     predicted_class = class_names[prediction]
 
-    # =========================
-    # Confidence Handling (Safe for LinearSVC)
-    # =========================
+    # Confidence Score (LinearSVC safe handling)
     decision_score = model.decision_function(features)
 
     if len(decision_score.shape) > 1:
@@ -73,22 +67,41 @@ def analyze_tumor_region(image_path):
     confidence_percent = min(100.0, round(confidence * 100.0, 2))
 
     # =========================
-    # Tumor / No Tumor Logic
+    # No Tumor Case
     # =========================
     if predicted_class == "notumor":
+
         return {
             "result": "No Tumor",
             "predicted_class": predicted_class,
             "confidence": confidence_percent,
-            "tumor_percentage": 0.0
+            "tumor_percentage": 0.0,
+            "risk_level": "No Risk",
+            "precaution": "Maintain regular health checkups and consult a doctor if neurological symptoms persist.",
+            "recommendation": "No immediate action required. Continue routine medical observation."
         }
 
+    # =========================
+    # Tumor Detected Case
+    # =========================
     else:
+
         tumor_percentage = calculate_tumor_percentage(image_path)
 
+        # Risk Level Estimation
+        if tumor_percentage < 2:
+            risk_level = "Low Risk"
+        elif tumor_percentage < 5:
+            risk_level = "Moderate Risk"
+        else:
+            risk_level = "High Risk"
+
         return {
-            "result": f"Tumor Detected",
+            "result": "Tumor Detected",
             "predicted_class": predicted_class,
             "confidence": confidence_percent,
-            "tumor_percentage": tumor_percentage
+            "tumor_percentage": tumor_percentage,
+            "risk_level": risk_level,
+            "precaution": "Consult a certified neurologist immediately for further clinical evaluation.",
+            "recommendation": "Further MRI scans and medical diagnosis are strongly recommended. Do not rely solely on automated results."
         }
