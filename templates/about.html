@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>About Brain Tumour</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+
+  <!-- Background Image (Medium Density) -->
+  <style>
+    body {
+      background-image: url('https://www.shutterstock.com/image-vector/human-brain-under-magnifying-glass-600nw-2687610109.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.80); /* MEDIUM density */
+      z-index: -1;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="card wide fade">
+  <h2>Understanding Brain Tumours</h2>
+  <p>
+    A brain tumour is an abnormal growth of cells inside the brain.
+    It can be benign or malignant and may affect vital brain functions
+    such as memory, speech, vision, and movement.
+    Early detection significantly improves survival and treatment success.
+  </p>
+
+
+
+
+<h3>Sample MRI Case Images</h3>
+
+<div class="image-scroll">
+  <img src="images/Te-gl_0010.jpg">
+  <img src="images/Te-gl_0011.jpg">
+  <img src="images/Te-me_0010.jpg">
+  <img src="images/Te-me_0011.jpg">
+  <img src="images/Te-pi_0010.jpg">
+  <img src="images/Te-pi_0012.jpg">
+  <img src="images/Tr-gl_0010.jpg">
+  <img src="images/Tr-gl_0011.jpg">
+  <img src="images/Tr-gl_0012.jpg">
+  <img src="images/Tr-me_0010.jpg">
+</div>
+
+
+
+  <h3>Awareness & Trusted News</h3>
+  <ul class="links">
+    <li><a href="https://www.who.int/news-room/fact-sheets/detail/cancer" target="_blank">WHO – Brain Cancer Facts</a></li>
+    <a href="https://www.thehindu.com/sci-tech/health/" target="_blank"></a>
+    <li><a href="https://timesofindia.indiatimes.com/topic/brain-tumour" target="_blank">Times of India – Brain Tumour News</a></li>
+  </ul>
+
+  <button onclick="goHome()">← Back to Welcome</button>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

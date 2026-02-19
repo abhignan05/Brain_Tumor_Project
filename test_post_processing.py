@@ -1,6 +1,6 @@
 from post_processing import analyze_tumor_region
 
-image_path = "Dataset/Testing/glioma/Te-gl_0014.jpg"
+image_path = "Dataset/Testing/notumor/Te-no_0014.jpg"
 
 result = analyze_tumor_region(image_path)
 

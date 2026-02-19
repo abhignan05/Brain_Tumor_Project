@@ -5,3 +5,9 @@ output/
 *.pyc
 *.pkl
 *.npy
+Dataset/
+models/
+__pycache__/
+static/images/
+static/uploads/
+

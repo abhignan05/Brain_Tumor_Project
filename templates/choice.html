@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Select Option</title>
+
+  <!-- Flask CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        linear-gradient(rgba(245,250,255,0.95), rgba(245,250,255,0.95)),
+        url('https://images.unsplash.com/photo-1580281657521-5c5a43f4f7c4');
+      background-size: cover;
+      background-position: center;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .top-bar {
+      height: 70px;
+      background: rgba(255,255,255,0.85);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 30px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      backdrop-filter: blur(6px);
+    }
+
+    .top-bar h2 {
+      margin: 0;
+      color: #0b2e4a;
+      font-size: 20px;
+    }
+
+    .profile {
+      position: relative;
+      cursor: pointer;
+    }
+
+    .profile img {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 2px solid #6fb1fc;
+    }
+
+    .dropdown {
+      position: absolute;
+      right: 0;
+      top: 55px;
+      background: white;
+      width: 160px;
+      border-radius: 12px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+      display: none;
+      overflow: hidden;
+    }
+
+    .dropdown a {
+      display: block;
+      padding: 12px 16px;
+      text-decoration: none;
+      color: #24485e;
+      font-size: 14px;
+    }
+
+    .dropdown a:hover {
+      background: #f0f6ff;
+    }
+
+    .profile:hover .dropdown {
+      display: block;
+    }
+
+    .choice-container {
+      margin-top: 120px;
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .choice-card {
+      width: 320px;
+      padding: 30px;
+      border-radius: 18px;
+      background: white;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+
+    .choice-card h3 {
+      color: #0b2e4a;
+      margin-bottom: 12px;
+    }
+
+    .soft-text {
+      color: #5f7a8a;
+      font-size: 15px;
+      margin-bottom: 20px;
+    }
+
+    .primary {
+      padding: 12px 28px;
+      font-size: 16px;
+      border: none;
+      border-radius: 30px;
+      background: linear-gradient(135deg, #6fb1fc, #4364f7);
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(67,100,247,0.3);
+    }
+
+    .primary:hover {
+      opacity: 0.9;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="top-bar">
+  <h2>🧠 Brain Tumour Detection</h2>
+
+  <div class="profile">
+    <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" alt="Profile">
+
+    <div class="dropdown">
+      <a href="#">⚙ Settings</a>
+      <a href="#">👤 Profile</a>
+      <a href="#">❓ Help</a>
+      <!-- Flask Home -->
+      <a href="{{ url_for('home') }}">🚪 Logout</a>
+    </div>
+  </div>
+</div>
+
+<div class="choice-container">
+
+  <div class="choice-card">
+    <h3>🧠 Know About Brain Tumour</h3>
+    <p class="soft-text">
+      Learn symptoms, causes, and importance of early detection.
+    </p>
+    <button class="primary"
+      onclick="window.location.href='{{ url_for('about') }}'">
+      Learn
+    </button>
+  </div>
+
+  <div class="choice-card">
+    <h3>🔍 Start Detection</h3>
+    <p class="soft-text">
+      Upload MRI and get AI-powered diagnostic insights.
+    </p>
+    <button class="primary"
+      onclick="window.location.href='{{ url_for('upload') }}'">
+      Detect
+    </button>
+  </div>
+
+</div>
+
+</body>
+</html>

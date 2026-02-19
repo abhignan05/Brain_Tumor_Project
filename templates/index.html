@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Brain Tumour Detection</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+
+  <style>
+    body {
+      background-image: url('https://www.shutterstock.com/image-vector/human-brain-under-magnifying-glass-600nw-2687610109.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.75);
+      z-index: -1;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- Hero Only -->
+ <br>
+ <br>
+ <br>
+<div class="hero fade">
+  <h1>AI-Powered Brain Tumour Detection</h1>
+  <p class="soft-text">
+    Early awareness. Accurate detection. Better care.
+  </p>
+
+  <button class="primary"
+        onclick="window.location.href='{{ url_for('choice') }}'">
+  Get Started
+</button>
+
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+<div class="mini-info">
+  🔬 Built for Early Diagnosis • ❤️ Designed for Patient Care
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

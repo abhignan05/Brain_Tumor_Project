@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Patient Details</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+
+  <style>
+    body {
+      background-image: url('https://www.shutterstock.com/image-vector/human-brain-under-magnifying-glass-600nw-2687610109.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.80);
+      z-index: -1;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="card fade">
+  <h2>Patient Information</h2>
+  <p class="soft-text">Please enter patient details and upload MRI image</p>
+
+  <!-- IMPORTANT FORM -->
+  <form action="{{ url_for('predict') }}" method="POST" enctype="multipart/form-data">
+
+    <label>Name</label>
+    <input type="text" name="name" placeholder="Enter patient name" required>
+
+    <label>Age</label>
+    <input type="number" name="age" placeholder="Enter age" required>
+
+    <label>Gender</label>
+    <select name="gender" required>
+      <option value="">Select gender</option>
+      <option>Male</option>
+      <option>Female</option>
+    </select>
+
+    <label>MRI Image</label>
+    <input type="file" name="image" accept="image/*" required>
+
+    <br><br>
+    <button type="submit" class="primary">Analyze MRI</button>
+
+  </form>
+
+</div>
+
+</body>
+</html>
