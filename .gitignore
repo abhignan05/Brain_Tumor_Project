@@ -4,4 +4,7 @@ output/
 Dataset/
 __pycache__/
 static/uploads/
-
+features/X_test.npy
+features/X_train.npy
+features/y_test.npy
+features/y_train.npy
