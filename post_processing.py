@@ -102,6 +102,6 @@ def analyze_tumor_region(image_path):
             "confidence": confidence_percent,
             "tumor_percentage": tumor_percentage,
             "risk_level": risk_level,
-            "precaution": "Consult a certified neurologist immediately for further clinical evaluation.",
-            "recommendation": "Further MRI scans and medical diagnosis are strongly recommended. Do not rely solely on automated results."
+            "precaution": "Consult a certified neurologist as soon as possible. Avoid stress and monitor symptoms like headaches, vision issues, or seizures.",
+            "recommendation": "Undergo detailed MRI or CT scans and follow the treatment plan suggested by your doctor. Early diagnosis improves treatment outcomes."
         }

@@ -2,71 +2,268 @@
 <html>
 <head>
   <title>About Brain Tumour</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
-  <!-- Background Image (Medium Density) -->
   <style>
     body {
-      background-image: url('https://www.shutterstock.com/image-vector/human-brain-under-magnifying-glass-600nw-2687610109.jpg');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-      position: relative;
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      background: linear-gradient(to right, #eef2f3, #dfe9f3);
     }
 
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background: rgba(255, 255, 255, 0.80); /* MEDIUM density */
-      z-index: -1;
+    .container {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 20px;
     }
+
+    .card {
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      margin-bottom: 25px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    }
+
+    h2 {
+      color: #2c3e50;
+    }
+
+    h3 {
+      color: #34495e;
+      margin-top: 10px;
+    }
+
+    p {
+      line-height: 1.7;
+      color: #555;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    li {
+      margin-bottom: 10px;
+      color: #444;
+    }
+
+    /* Image Grid */
+    .image-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    .image-grid img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 10px;
+      transition: transform 0.3s ease;
+    }
+
+    .image-grid img:hover {
+      transform: scale(1.05);
+    }
+
+    /* Highlight Box */
+    .highlight {
+      background: #fff3cd;
+      padding: 15px;
+      border-radius: 10px;
+      color: #856404;
+    }
+
+    /* Info Box */
+    .info {
+      background: #e8f4fd;
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 15px;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 12px 25px;
+      border: none;
+      background: #3498db;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    button:hover {
+      background: #2980b9;
+    }
+
+    a {
+      color: #2980b9;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
   </style>
 </head>
 
 <body>
 
-<div class="card wide fade">
-  <h2>Understanding Brain Tumours</h2>
-  <p>
-    A brain tumour is an abnormal growth of cells inside the brain.
-    It can be benign or malignant and may affect vital brain functions
-    such as memory, speech, vision, and movement.
-    Early detection significantly improves survival and treatment success.
-  </p>
+<div class="container">
 
+  <div class="card">
+    <h2>🧠 Understanding Brain Tumours</h2>
+    <p>
+      A brain tumour is an abnormal growth of cells inside the brain. 
+      These growths can be <b>benign (non-cancerous)</b> or <b>malignant (cancerous)</b>.
+      As the brain controls essential functions like memory, speech, vision, and movement,
+      any tumour can affect daily life significantly.
+    </p>
 
+    <div class="info">
+      💡 Early detection can greatly improve treatment success and survival rates.
+    </div>
+  </div>
 
+  <div class="card">
+    <h3>🔬 Types of Brain Tumours</h3>
 
-<h3>Sample MRI Case Images</h3>
+    <p>
+      Brain tumours are categorized based on where they start and how they behave.
+      Here are the most common types explained simply:
+    </p>
 
-<div class="image-scroll">
-  <img src="images/Te-gl_0010.jpg">
-  <img src="images/Te-gl_0011.jpg">
-  <img src="images/Te-me_0010.jpg">
-  <img src="images/Te-me_0011.jpg">
-  <img src="images/Te-pi_0010.jpg">
-  <img src="images/Te-pi_0012.jpg">
-  <img src="images/Tr-gl_0010.jpg">
-  <img src="images/Tr-gl_0011.jpg">
-  <img src="images/Tr-gl_0012.jpg">
-  <img src="images/Tr-me_0010.jpg">
+    <ul>
+      <li>
+        <b>Glioma:</b> 
+        The most common type. It begins in brain support cells and can grow slowly or aggressively.
+      </li>
+
+      <li>
+        <b>Meningioma:</b> 
+        Starts in the protective covering of the brain. Usually slow-growing and often non-cancerous.
+      </li>
+
+      <li>
+        <b>Pituitary Tumour:</b> 
+        Affects hormone-producing glands and may cause hormonal imbalance.
+      </li>
+
+      <li>
+        <b>Metastatic Tumour:</b> 
+        Cancer that spreads to the brain from other parts like lungs or breast.
+      </li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>📊 Tumour Stages</h3>
+
+    <p>
+      Tumours are classified into stages based on how aggressive they are:
+    </p>
+
+    <ul>
+      <li><b>Grade I:</b> Slow-growing, least harmful</li>
+      <li><b>Grade II:</b> May grow slowly but can return</li>
+      <li><b>Grade III:</b> Malignant and faster growing</li>
+      <li><b>Grade IV:</b> Highly aggressive (e.g., Glioblastoma)</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>⚠ Common Symptoms</h3>
+
+    <p>
+      Symptoms may vary depending on tumour location, but common signs include:
+    </p>
+
+    <ul>
+      <li>Frequent headaches</li>
+      <li>Seizures</li>
+      <li>Blurred vision or speech issues</li>
+      <li>Memory problems</li>
+      <li>Loss of balance or coordination</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>🧪 MRI Sample Images</h3>
+
+    <div class="image-grid">
+      <img src="{{ url_for('static', filename='images/Te-gl_0010.jpg') }}">
+      <img src="{{ url_for('static', filename='images/Te-me_0010.jpg') }}">
+      <img src="{{ url_for('static', filename='images/Te-pi_0010.jpg') }}">
+      <img src="{{ url_for('static', filename='images/Tr-gl_0010.jpg') }}">
+      <img src="{{ url_for('static', filename='images/Tr-me_0010.jpg') }}">
+      <img src="{{ url_for('static', filename='images/Te-gl_0011.jpg') }}">
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>🛡 Precautions & Prevention</h3>
+
+    <ul>
+      <li>Go for regular medical checkups</li>
+      <li>Avoid unnecessary radiation exposure</li>
+      <li>Maintain a healthy lifestyle</li>
+      <li>Pay attention to early neurological symptoms</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>🥗 Recommended Diet</h3>
+
+    <p>
+      A healthy diet supports brain health and overall immunity:
+    </p>
+
+    <ul>
+      <li>Fruits & vegetables (rich in antioxidants)</li>
+      <li>Whole grains and nuts</li>
+      <li>Omega-3 foods (fish, flaxseeds)</li>
+      <li>Avoid processed and sugary foods</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>💡 Medical Recommendations</h3>
+
+    <ul>
+      <li>Consult a neurologist if symptoms appear</li>
+      <li>Regular MRI/CT scans when advised</li>
+      <li>Follow proper treatment plans strictly</li>
+    </ul>
+  </div>
+
+  <div class="card highlight">
+    ⚠ <b>Disclaimer:</b> This system is for educational and research purposes only. 
+    It should not replace professional medical diagnosis.
+  </div>
+
+  <div class="card">
+    <h3>🌐 Trusted Sources</h3>
+    <ul>
+      <li><a href="https://www.who.int/news-room/fact-sheets/detail/cancer" target="_blank">WHO – Cancer Facts</a></li>
+      <li><a href="https://timesofindia.indiatimes.com/topic/brain-tumour" target="_blank">Brain Tumour News</a></li>
+    </ul>
+  </div>
+
+  <button onclick="goHome()">← Back to Home</button>
+
 </div>
 
+<script>
+function goHome() {
+  window.location.href = "/";
+}
+</script>
 
-
-  <h3>Awareness & Trusted News</h3>
-  <ul class="links">
-    <li><a href="https://www.who.int/news-room/fact-sheets/detail/cancer" target="_blank">WHO – Brain Cancer Facts</a></li>
-    <a href="https://www.thehindu.com/sci-tech/health/" target="_blank"></a>
-    <li><a href="https://timesofindia.indiatimes.com/topic/brain-tumour" target="_blank">Times of India – Brain Tumour News</a></li>
-  </ul>
-
-  <button onclick="goHome()">← Back to Welcome</button>
-</div>
-
-<script src="script.js"></script>
 </body>
 </html>
