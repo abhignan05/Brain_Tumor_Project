@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Detection Result</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<!-- DOWNLOAD BUTTON -->
+<div class="result-top-bar">
+  <button class="download-btn" onclick="window.print()">⬇ Download</button>
+</div>
+
+<div class="card report fade">
+
+  <!-- MRI IMAGE -->
+  <div class="mri-container">
+    <img src="{{ url_for('static', filename='uploads/' + result.image_name) }}">
+  </div>
+
+  <!-- RESULT STATUS -->
+  {% if result.result == "No Tumor" %}
+
+    <div class="success-box">
+      <h2>✅ No Tumor Detected</h2>
+      <p>Your MRI scan appears normal. No abnormal growth detected.</p>
+    </div>
+
+  {% else %}
+
+    <div class="alert-box">
+      ⚠ Tumor detected in MRI scan. Further medical evaluation recommended.
+    </div>
+
+  {% endif %}
+
+  <!-- PATIENT DETAILS -->
+  <div class="info-section">
+    <h3>Patient Information</h3>
+    <div class="info-grid-new">
+      <div>
+        <span>Name</span>
+        <strong>{{ patient_name }}</strong>
+      </div>
+      <div>
+        <span>Age</span>
+        <strong>{{ age }}</strong>
+      </div>
+      <div>
+        <span>Gender</span>
+        <strong>{{ gender }}</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- AI ANALYSIS -->
+  <div class="analysis-section">
+    <h3>AI Analysis</h3>
+
+    <div class="analysis-grid-new">
+      <div>
+        <span>Type</span>
+        <strong>{{ result.predicted_class }}</strong>
+      </div>
+
+      <div>
+        <span>Confidence</span>
+        <strong>{{ result.confidence }}%</strong>
+      </div>
+
+      <div>
+        <span>Tumor Size</span>
+        <strong>{{ result.tumor_percentage }}%</strong>
+      </div>
+
+      <div>
+        <span>Risk Level</span>
+        <strong class="risk-text">{{ result.risk_level }}</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- RISK GAUGE (ONLY IF TUMOR EXISTS) -->
+  {% if result.result != "No Tumor" %}
+  <div class="risk-section">
+    <h3>Risk Indicator</h3>
+
+    <div class="gauge">
+      <div class="needle 
+      {% if result.risk_level == 'Low Risk' %}low
+      {% elif result.risk_level == 'Moderate Risk' %}medium
+      {% else %}high{% endif %}">
+      </div>
+    </div>
+
+    <div class="risk-labels">
+      <span>Low</span><span>Medium</span><span>High</span>
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- PRECAUTION -->
+  <div class="box precaution-box">
+    <h4>🛡 Precaution</h4>
+    <p>{{ result.precaution }}</p>
+  </div>
+
+  <!-- RECOMMENDATION -->
+  <div class="box recommend-box">
+    <h4>💡 Recommendation</h4>
+    <p>{{ result.recommendation }}</p>
+  </div>
+
+  <!-- DISCLAIMER -->
+  <div class="disclaimer">
+    This AI report is for educational purposes only. Please consult a medical professional for diagnosis.
+  </div>
+
+</div>
+
+<div class="news">
+  Early detection saves lives
+</div>
+
+</body>
+</html>
