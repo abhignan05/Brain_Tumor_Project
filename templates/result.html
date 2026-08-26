@@ -3,77 +3,94 @@
 <head>
   <title>Detection Result</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-
 </head>
+
 <body>
 
-<!-- TOP RIGHT DOWNLOAD BUTTON -->
+<!-- DOWNLOAD BUTTON -->
 <div class="result-top-bar">
-  <button class="download-btn" onclick="window.print()">
-    ⬇ Download Report
-  </button>
+  <button class="download-btn" onclick="window.print()">⬇ Download</button>
 </div>
 
 <div class="card report fade">
 
-  <h2>AI Diagnostic Report</h2>
-
-  <!-- Patient Info -->
-  <p><strong>Patient Name:</strong> {{ patient_name }}</p>
-  <p><strong>Age:</strong> {{ age }}</p>
-  <p><strong>Gender:</strong> {{ gender }}</p>
-
-  <hr>
-
-  <!-- AI Results -->
-  <p><strong>Result:</strong> {{ result.result }}</p>
-  <p><strong>Predicted Class:</strong> {{ result.predicted_class }}</p>
-  <p><strong>Confidence:</strong> {{ result.confidence }} %</p>
-  <p><strong>Tumor Size:</strong> {{ result.tumor_percentage }} %</p>
-  <p><strong>Risk Level:</strong> {{ result.risk_level }}</p>
-
-  <br>
-
-  <!-- Precaution -->
-  <div class="precaution-box">
-    <p><strong>Precaution:</strong></p>
-    <p>{{ result.precaution }}</p>
-  </div>
-
-  <br>
-
-  <!-- Recommendation -->
-  <div class="recommend-box">
-    <p><strong>Recommendation:</strong></p>
-    <p>{{ result.recommendation }}</p>
-  </div>
-
-  <br>
-
   <!-- MRI IMAGE -->
   <div class="mri-container">
-    <img src="{{ url_for('static', filename='uploads/' + result.image_name) }}" 
-         alt="Uploaded MRI"
-         style="max-width:300px; border-radius:10px;">
+    <img src="{{ url_for('static', filename='uploads/' + result.image_name) }}">
   </div>
 
-  <br>
+  <!-- RESULT STATUS -->
+  {% if result.result == "No Tumor" %}
 
-  <!-- Risk Gauge -->
+    <div class="success-box">
+      <h2>✅ No Tumor Detected</h2>
+      <p>Your MRI scan appears normal. No abnormal growth detected.</p>
+    </div>
+
+  {% else %}
+
+    <div class="alert-box">
+      ⚠ Tumor detected in MRI scan. Further medical evaluation recommended.
+    </div>
+
+  {% endif %}
+
+  <!-- PATIENT DETAILS -->
+  <div class="info-section">
+    <h3>Patient Information</h3>
+    <div class="info-grid-new">
+      <div>
+        <span>Name</span>
+        <strong>{{ patient_name }}</strong>
+      </div>
+      <div>
+        <span>Age</span>
+        <strong>{{ age }}</strong>
+      </div>
+      <div>
+        <span>Gender</span>
+        <strong>{{ gender }}</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- AI ANALYSIS -->
+  <div class="analysis-section">
+    <h3>AI Analysis</h3>
+
+    <div class="analysis-grid-new">
+      <div>
+        <span>Type</span>
+        <strong>{{ result.predicted_class }}</strong>
+      </div>
+
+      <div>
+        <span>Confidence</span>
+        <strong>{{ result.confidence }}%</strong>
+      </div>
+
+      <div>
+        <span>Tumor Size</span>
+        <strong>{{ result.tumor_percentage }}%</strong>
+      </div>
+
+      <div>
+        <span>Risk Level</span>
+        <strong class="risk-text">{{ result.risk_level }}</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- RISK GAUGE (ONLY IF TUMOR EXISTS) -->
+  {% if result.result != "No Tumor" %}
   <div class="risk-section">
-    <p class="risk-title">Risk Level</p>
+    <h3>Risk Indicator</h3>
 
     <div class="gauge">
-      <div class="needle" 
-           style="transform:
-           {% if result.risk_level == 'Low Risk' %}
-               rotate(20deg)
-           {% elif result.risk_level == 'Medium Risk' %}
-               rotate(90deg)
-           {% else %}
-               rotate(160deg)
-           {% endif %}
-           ">
+      <div class="needle 
+      {% if result.risk_level == 'Low Risk' %}low
+      {% elif result.risk_level == 'Moderate Risk' %}medium
+      {% else %}high{% endif %}">
       </div>
     </div>
 
@@ -81,11 +98,29 @@
       <span>Low</span><span>Medium</span><span>High</span>
     </div>
   </div>
+  {% endif %}
+
+  <!-- PRECAUTION -->
+  <div class="box precaution-box">
+    <h4>🛡 Precaution</h4>
+    <p>{{ result.precaution }}</p>
+  </div>
+
+  <!-- RECOMMENDATION -->
+  <div class="box recommend-box">
+    <h4>💡 Recommendation</h4>
+    <p>{{ result.recommendation }}</p>
+  </div>
+
+  <!-- DISCLAIMER -->
+  <div class="disclaimer">
+    This AI report is for educational purposes only. Please consult a medical professional for diagnosis.
+  </div>
 
 </div>
 
 <div class="news">
-  🇮🇳 India Brain Tumour Update: ~40,000 new cases annually • Early detection saves lives
+  Early detection saves lives
 </div>
 
 </body>

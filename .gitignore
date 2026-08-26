@@ -1,13 +1,10 @@
 __pycache__/
-features/
-models/
 output/
 *.pyc
-*.pkl
-*.npy
 Dataset/
-models/
 __pycache__/
-static/images/
 static/uploads/
-
+features/X_test.npy
+features/X_train.npy
+features/y_test.npy
+features/y_train.npy
